@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1512133762 source:c:\users\dell\desktop\lab4\hard\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1513775162 source:c:\users\dell\desktop\hard\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<dos.h>
+	<dir.h>
+
+1513775162 source:c:\users\dell\desktop\final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<dos.h>
+	<dir.h>
+

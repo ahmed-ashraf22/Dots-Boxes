@@ -1,0 +1,2605 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<windows.h>
+#include <dos.h>
+#include <dir.h>
+int main()
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
+
+    /* Save current attributes */
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    int i,j,t,l;
+    char n = 79;
+    char c = 178;
+    int stateH[6][5] = {{0}};
+    int stateV[5][6] = {{0}};
+    int urh[3][2] = {0};
+    int urv [2][3] = {0};
+    int p = 1;
+    int player1Sc = 0;
+    int player2Sc = 0;
+    char firstElem[10];
+    char secElem[10];
+
+
+    int player1t = 1;
+    int winner[5][5];
+    int squ[5][5];
+    for(i = 0;i < 5;i++){
+        for(j = 0;j < 5;j++){
+            squ[i][j] = 0;
+            winner[i][j] = 0;
+        }
+    }
+    int gameh[6][5];
+    for(i = 0;i < 6;i++){
+        for(j = 0;j < 5;j++){
+        gameh[i][j] = 0;
+    }
+    }
+
+    int gamev[5][6];
+   for(i = 0;i < 5;i++){
+        for(j = 0;j < 6;j++){
+        gamev[i][j] = 0;
+    }
+    }
+printf("    PLAYER 1 SCORE           PLAYER 2 SCORE\n\n          %d                        %d\n\n",player1Sc,player2Sc);
+int g;
+
+for(j = 0;j < 5;j++){
+            if(gameh[0][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(gamev[0][0] == 1){
+            printf("|     ");
+
+        }
+        if(gamev[0][1] == 1){
+                if(gamev[0][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(gamev[0][2] == 1){
+                if(gamev[0][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[0][0] != 1)&&(gamev[0][1] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[0][0] == 1)&&(gamev[0][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        if(gamev[0][3] == 1){
+                if(gamev[0][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[0][2] != 1)&&(gamev[0][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        if(gamev[0][4] == 1){
+            if(gamev[0][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[0][3] != 1)&&(gamev[0][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+            if(gamev[0][5] == 1){
+                if(gamev[0][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[0][4] != 1)&&(gamev[0][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][2] == 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                              |");
+                }
+                 if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                               |");
+                }
+
+
+            }
+        printf("\n");
+    }
+
+    for(j = 0;j < 5;j++){
+            if(gameh[1][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+   for(i = 0;i < 3;i++){
+        if(gamev[1][0] == 1){
+            printf("|     ");
+
+        }
+        if(gamev[1][1] == 1){
+                if(gamev[1][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(gamev[1][2] == 1){
+                if(gamev[1][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[1][0] != 1)&&(gamev[1][1] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[1][0] == 1)&&(gamev[1][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        if(gamev[1][3] == 1){
+                if(gamev[1][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[1][2] != 1)&&(gamev[1][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        if(gamev[1][4] == 1){
+            if(gamev[1][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[1][3] != 1)&&(gamev[1][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        if(gamev[1][5] == 1){
+                if(gamev[1][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[1][4] != 1)&&(gamev[1][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][2] == 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                              |");
+                }
+                 if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                               |");
+                }
+
+
+            }
+        printf("\n");
+    }
+
+for(j = 0;j < 5;j++){
+            if(gameh[2][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(gamev[2][0] == 1){
+            printf("|     ");
+
+        }
+        if(gamev[2][1] == 1){
+                if(gamev[2][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(gamev[2][2] == 1){
+                if(gamev[2][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[2][0] != 1)&&(gamev[2][1] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[2][0] == 1)&&(gamev[2][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        if(gamev[2][3] == 1){
+                if(gamev[2][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[2][2] != 1)&&(gamev[2][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        if(gamev[2][4] == 1){
+            if(gamev[2][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[2][3] != 1)&&(gamev[2][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        if(gamev[2][5] == 1){
+                if(gamev[2][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[2][4] != 1)&&(gamev[2][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][2] == 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                              |");
+                }
+                 if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                               |");
+                }
+
+
+            }
+        printf("\n");
+    }
+for(j = 0;j < 5;j++){
+            if(gameh[3][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(gamev[3][0] == 1){
+            printf("|     ");
+
+        }
+        if(gamev[3][1] == 1){
+                if(gamev[3][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(gamev[3][2] == 1){
+                if(gamev[3][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[3][0] != 1)&&(gamev[3][1] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[3][0] == 1)&&(gamev[3][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        if(gamev[3][3] == 1){
+                if(gamev[3][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[3][2] != 1)&&(gamev[3][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        if(gamev[3][4] == 1){
+            if(gamev[3][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[3][3] != 1)&&(gamev[3][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        if(gamev[3][5] == 1){
+                if(gamev[3][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[3][4] != 1)&&(gamev[3][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][2] == 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                              |");
+                }
+                 if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                               |");
+                }
+
+
+            }
+        printf("\n");
+
+    }
+    for(j = 0;j < 5;j++){
+            if(gameh[4][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+    for(i = 0;i < 3;i++){
+        if(gamev[4][0] == 1){
+            printf("|     ");
+
+        }
+        if(gamev[4][1] == 1){
+                if(gamev[4][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(gamev[4][2] == 1){
+                if(gamev[4][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[4][0] != 1)&&(gamev[4][1] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[4][0] == 1)&&(gamev[4][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        if(gamev[4][3] == 1){
+                if(gamev[4][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[4][2] != 1)&&(gamev[4][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        if(gamev[4][4] == 1){
+            if(gamev[4][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[4][3] != 1)&&(gamev[4][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[4][0] != 1)&&(gamev[3][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        if(gamev[4][5] == 1){
+                if(gamev[1][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[4][4] != 1)&&(gamev[4][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][2] == 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                              |");
+                }
+                 if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                               |");
+                }
+
+
+            }
+        printf("\n");
+
+    }
+    for(j = 0;j < 5;j++){
+            if(gameh[5][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+for(t = 0;t < 60;t++){
+
+            if(player1t == 1){
+                printf("Player 1 Turn\n");
+                printf("Enter the first element:");
+                scanf("%s",firstElem);
+
+int x,x2,y,y2;
+int f3;
+            f3 = 0;
+
+            if(firstElem[0] == 'u'){
+                for(i = 0;i < 3;i++){
+                    for(j = 0;j < 2;j++){
+                        if(urh[i][j] == p-1){
+                            gameh[i][j] = 0;
+                            stateH[i][j] = 0;
+                            p-=1;
+                            f3 = 1;
+
+                            break;
+                        }
+
+                    }
+                    if(f3 == 1){
+                            break;
+                        }
+                }
+                for(i = 0;i < 2;i++){
+                    if(f3 == 1){
+                        break;
+                    }
+                    for(j = 0;j < 3;j++){
+                        if(urv[i][j] == p-1){
+                            gamev[i][j] = 0;
+                            stateV[i][j] = 0;
+                            p-=1;
+
+
+                        }
+                    }
+                }
+
+for(i = 0; i < 2; i++)
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        if(((stateV[i][j+1] == 0)||(stateV[i][j] == 0)||(stateH[i][j] == 0)||(stateH[i+1][j] == 0) )&& squ[i][j] == 1)
+                        {
+                            squ[i][j] = 0;
+                            if(winner[i][j] == 2){
+                                player2Sc -= 1;
+                                winner[i][j] = 0;
+                            }
+                            else{
+                                player1Sc-=1;
+                                winner[i][j] = 0;
+                            }
+                            player1t = 1;
+
+
+
+                        }
+
+                    }
+
+                }
+            }
+
+else{
+            if(((firstElem[0] == '0')||(firstElem[0] == '1')||(firstElem[0] == '2')||(firstElem[0] == '3')||(firstElem[0] == '4')||(firstElem[0] == '5'))&&((firstElem[1] == '0')||(firstElem[1] == '1')||(firstElem[1] == '2')||(firstElem[1] == '3')||(firstElem[1] == '4')||(firstElem[1] == '5')))
+            {
+                x = firstElem[0] - '0';
+                x2 = firstElem[1] - '0';
+            }
+            else
+            {
+                while(((firstElem[0] != '0')&&(firstElem[0] != '1')&&(firstElem[0] != '2')&&(firstElem[0] != '3')&&(firstElem[0] != '4')&&(firstElem[0] != '5'))||((firstElem[1] != '0')&&(firstElem[1] != '1')&&(firstElem[1] != '2')&&(firstElem[1] != '3')&&(firstElem[1] != '4')&&(firstElem[1] != '5')))
+                {
+                    printf("PLEASE ENTER NUMBERS FROM 0 TO 2!\n");
+
+                    printf("Enter the first element:");
+                    scanf("%s",firstElem);
+                }
+
+                x = firstElem[0] - '0';
+                x2 = firstElem[1] - '0';
+            }
+            printf("Enter the second element:");
+            scanf("%s",secElem);
+             if(((secElem[0] == '0')||(secElem[0] == '1')||(secElem[0] == '2')||(secElem[0] == '2')||(secElem[0] == '4')||(secElem[0] == '5'))&&((secElem[1] == '0')||(secElem[1] == '1')||(secElem[1] == '2')||(secElem[1] == '3')||(secElem[1] == '4')||(secElem[1] == '5')))
+            {
+                y = secElem[0] - '0';
+                y2 = secElem[1] - '0';
+            }
+            else
+            {
+                while(((secElem[0] != '0')&&(secElem[0] != '1')&&(secElem[0] != '2')&&(secElem[0] != '3')&&(secElem[0] != '4')&&(secElem[0] != '5'))||((secElem[1] != '0')&&(secElem[1] != '1')&&(secElem[1] != '2')&&(secElem[1] != '3')&&(secElem[1] != '4')&&(secElem[1] != '5')))
+                {
+                    printf("PLEASE ENTER NUMBERS FROM 0 TO 2!\n");
+
+                    printf("Enter the second element:");
+                    scanf("%s",secElem);
+                }
+
+                y = secElem[0] - '0';
+                y2 = secElem[1] - '0';
+            }
+
+            int r;
+
+       if(firstElem[0] == secElem[0]){
+        if(x2 > y2){
+            r = y2;
+            y2 = x2;
+            x2 = r;
+        }
+        gameh[x][x2] = 1;
+        stateH[x][x2] = 1;
+    }
+    else if((firstElem[1] == secElem[1])){
+            if(x > y){
+                r = y;
+                y = x;
+                x = r;
+            }
+      stateV[x][x2] = 1;
+      gamev[x][x2] = 1;
+    }
+int flag;
+flag = 0;
+    //Displaying the state
+for(l = 0; l <= 25; l++)
+            {
+                for(i = 0; i < 5; i++)
+                {
+                    for(j = 0; j < 5; j++)
+                    {
+                        if((stateV[i][j+1] == 1)&&(stateV[i][j] == 1)&&(stateH[i][j] == 1)&&(stateH[i+1][j] == 1) && squ[i][j] == 0)
+                        {
+                            squ[i][j] = 1;
+                            if(squ[i][j] == 1)
+                            {
+                                winner[i][j] = 1;
+                                player1Sc += 1;
+                                player1t = 1;
+                                flag = 1;
+                            }
+
+                            else
+                            {
+                                player1t = 0;
+                            }
+
+
+                        }
+                        else
+                        {
+                            player1t = 0;
+                        }
+                    }
+
+                }
+            }
+            if(flag == 1){
+        player1t = 1;
+    }
+}
+    }
+
+    else{
+
+
+printf("Player 2 Turn\n");
+                printf("Enter the first element:");
+                scanf("%s",firstElem);
+                printf("Enter the second element:");
+                scanf("%s",secElem);
+
+    int x,x2,y,y2;
+
+    x = firstElem[0] - '0';
+    x2 = firstElem[1] - '0';
+    y = secElem[0] - '0';
+    y2 = secElem[1] - '0';
+
+
+    int r;
+
+        if(firstElem[0] == secElem[0]){
+        if(x2 > y2){
+            r = y2;
+            y2 = x2;
+            x2 = r;
+        }
+        gameh[x][x2] = 1;
+        stateH[x][x2] = 1;
+    }
+    else if((firstElem[1] == secElem[1])){
+            if(x > y){
+                r = y;
+                y = x;
+                x = r;
+            }
+      stateV[x][x2] = 1;
+      gamev[x][x2] = 1;
+    }
+int flag;
+flag = 0;
+    //Displaying the state
+ for(l = 0; l <= 25; l++)
+            {
+                for(i = 0; i < 5; i++)
+                {
+                    for(j = 0; j < 5; j++)
+                    {
+                        if((stateV[i][j+1] == 1)&&(stateV[i][j] == 1)&&(stateH[i][j] == 1)&&(stateH[i+1][j] == 1) && squ[i][j] == 0)
+                        {
+                            squ[i][j] = 1;
+                            if(squ[i][j] == 1)
+                            {
+                                winner[i][j] = 2;
+                                player2Sc += 1;
+                                player1t = 0;
+                                flag = 1;
+
+                            }
+
+                            else
+                            {
+                                player1t = 1;
+                            }
+
+
+                        }
+                        else
+                        {
+                            player1t = 1;
+                        }
+                    }
+
+                }
+
+            }
+       if(flag == 1){
+        player1t = 0;
+    }
+    }
+
+    system("cls");
+printf("    PLAYER 1 SCORE           PLAYER 2 SCORE\n\n          %d                        %d\n\n",player1Sc,player2Sc);
+int g;
+
+for(j = 0;j < 5;j++){
+            if(gameh[0][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(squ[0][0] >= 1){
+            if(gamev[0][0] == 1){
+            printf("|");
+            if(winner[0][0] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+            printf("%c%c%c%c%c",c,c,c,c,c);
+            SetConsoleTextAttribute(hConsole, saved_attributes);
+        }
+        }
+        else{
+        if(gamev[0][0] == 1){
+            printf("|     ");
+
+        }
+        }
+
+        if(gamev[0][1] == 1){
+
+                if(gamev[0][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(squ[0][1] >= 1){
+            if(gamev[0][2] == 1){
+                if(gamev[0][1] == 1){
+                    if(winner[0][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+        }
+                else if((gamev[0][0] != 1)&&(gamev[0][1] != 1)){
+                        if(winner[0][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                else if ((gamev[0][0] == 1)&&(gamev[0][1] != 1)){
+                        if(winner[0][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf(" %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+        }
+        else{
+        if(gamev[0][2] == 1){
+                if(gamev[0][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[0][0] != 1)&&(gamev[0][0] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[0][0] == 1)&&(gamev[0][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        }
+        if(squ[0][2] >= 1){
+        if(gamev[0][3] == 1){
+
+                if(gamev[0][2] == 1){
+                if(winner[0][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][2] != 1)&&(gamev[0][1] == 1)){
+
+                if(winner[0][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+
+               if(winner[0][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+                if(winner[0][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+                }
+        else{
+        if(gamev[0][3] == 1){
+
+                if(gamev[0][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[0][2] != 1)&&(gamev[0][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+                    printf("            |");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        }
+        if(squ[0][3] >= 1){
+            if(gamev[0][4] == 1){
+            if(gamev[0][3] == 1){
+                    if(winner[0][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][3] != 1)&&(gamev[0][2] == 1)){
+                    if(winner[0][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    if(winner[0][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    if(winner[0][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    if(winner[0][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+        }
+        else{
+        if(gamev[0][4] == 1){
+            if(gamev[0][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[0][3] != 1)&&(gamev[0][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        }
+           if(squ[0][4] >= 1){
+            if(gamev[0][5] == 1){
+                if(gamev[0][4] == 1){
+                      if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                     printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                     printf("|");
+
+                }
+
+                if((gamev[0][4] != 1)&&(gamev[0][3] == 1)){
+                    if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[0][2] == 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                        if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                        if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                  %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                 if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    if(winner[0][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                         %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+
+
+            }
+        }
+        else{
+             if(gamev[0][5] == 1){
+                if(gamev[0][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[0][4] != 1)&&(gamev[0][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[0][2] == 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[0][1] == 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[0][0] == 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                        |");
+                }
+                 if((gamev[0][0] != 1)&&(gamev[0][1] != 1)&&(gamev[0][2] != 1)&&(gamev[0][3] != 1)&&(gamev[0][4] != 1)){
+                    printf("                              |");
+                }
+
+
+            }
+
+        }
+        printf("\n");
+    }
+
+    for(j = 0;j < 5;j++){
+            if(gameh[1][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+   for(i = 0;i < 3;i++){
+        if(squ[1][0] >= 1){
+            if(gamev[1][0] == 1){
+            printf("|");
+            if(winner[1][0] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+            printf("%c%c%c%c%c",c,c,c,c,c);
+            SetConsoleTextAttribute(hConsole, saved_attributes);
+        }
+        }
+        else{
+        if(gamev[1][0] == 1){
+            printf("|     ");
+
+        }
+        }
+        if(gamev[1][1] == 1){
+                if(gamev[1][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(squ[1][1] >= 1){
+            if(gamev[1][2] == 1){
+                if(gamev[1][1] == 1){
+                    if(winner[1][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+        }
+                else if((gamev[1][0] != 1)&&(gamev[1][1] != 1)){
+                        if(winner[1][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                else if ((gamev[1][0] == 1)&&(gamev[1][1] != 1)){
+                        if(winner[1][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf(" %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+        }
+        else{
+        if(gamev[1][2] == 1){
+                if(gamev[1][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[1][0] != 1)&&(gamev[1][0] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[1][0] == 1)&&(gamev[1][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        }
+        if(squ[1][2] >= 1){
+        if(gamev[1][3] == 1){
+
+                if(gamev[1][2] == 1){
+                if(winner[1][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][2] != 1)&&(gamev[1][1] == 1)){
+
+                if(winner[1][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+
+               if(winner[1][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+                if(winner[1][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+                }
+        else{
+        if(gamev[1][3] == 1){
+
+                if(gamev[1][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[1][2] != 1)&&(gamev[1][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+                    printf("            |");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        }
+        if(squ[1][3] >= 1){
+            if(gamev[1][4] == 1){
+            if(gamev[1][3] == 1){
+                    if(winner[1][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][3] != 1)&&(gamev[1][2] == 1)){
+                    if(winner[1][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    if(winner[1][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    if(winner[1][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    if(winner[1][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+        }
+        else{
+        if(gamev[1][4] == 1){
+            if(gamev[1][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[1][3] != 1)&&(gamev[1][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        }
+        if(squ[1][4] >= 1){
+            if(gamev[1][5] == 1){
+                if(gamev[1][4] == 1){
+                      if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                     printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                     printf("|");
+
+                }
+
+                if((gamev[1][4] != 1)&&(gamev[1][3] == 1)){
+                    if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[1][2] == 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                        if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                        if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                  %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                 if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    if(winner[1][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                         %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+
+
+            }
+        }
+        else{
+             if(gamev[1][5] == 1){
+                if(gamev[1][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[1][4] != 1)&&(gamev[1][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[1][2] == 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[1][1] == 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[1][0] == 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                        |");
+                }
+                 if((gamev[1][0] != 1)&&(gamev[1][1] != 1)&&(gamev[1][2] != 1)&&(gamev[1][3] != 1)&&(gamev[1][4] != 1)){
+                    printf("                              |");
+                }
+
+
+            }
+
+        }
+        printf("\n");
+    }
+
+for(j = 0;j < 5;j++){
+            if(gameh[2][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(squ[2][0] >= 1){
+            if(gamev[2][0] == 1){
+            printf("|");
+            if(winner[2][0] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+            printf("%c%c%c%c%c",c,c,c,c,c);
+            SetConsoleTextAttribute(hConsole, saved_attributes);
+        }
+        }
+        else{
+        if(gamev[2][0] == 1){
+            printf("|     ");
+
+        }
+        }
+        if(gamev[2][1] == 1){
+                if(gamev[2][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(squ[2][1] >= 1){
+            if(gamev[2][2] == 1){
+                if(gamev[2][1] == 1){
+                    if(winner[2][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+        }
+                else if((gamev[2][0] != 1)&&(gamev[2][1] != 1)){
+                        if(winner[2][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                else if ((gamev[2][0] == 1)&&(gamev[2][1] != 1)){
+                        if(winner[2][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf(" %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+        }
+        else{
+        if(gamev[2][2] == 1){
+                if(gamev[2][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[2][0] != 1)&&(gamev[2][0] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[2][0] == 1)&&(gamev[2][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        }
+        if(squ[2][2] >= 1){
+        if(gamev[2][3] == 1){
+
+                if(gamev[2][2] == 1){
+                if(winner[2][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][2] != 1)&&(gamev[2][1] == 1)){
+
+                if(winner[2][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+
+               if(winner[2][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+                if(winner[2][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+                }
+        else{
+        if(gamev[2][3] == 1){
+
+                if(gamev[2][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[2][2] != 1)&&(gamev[2][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+                    printf("            |");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        }
+        if(squ[2][3] >= 1){
+            if(gamev[2][4] == 1){
+            if(gamev[2][3] == 1){
+                    if(winner[2][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][3] != 1)&&(gamev[2][2] == 1)){
+                    if(winner[2][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    if(winner[2][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    if(winner[2][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    if(winner[2][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+        }
+        else{
+        if(gamev[2][4] == 1){
+            if(gamev[2][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[2][3] != 1)&&(gamev[2][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        }
+        if(squ[2][4] >= 1){
+            if(gamev[2][5] == 1){
+                if(gamev[2][4] == 1){
+                      if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                     printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                     printf("|");
+
+                }
+
+                if((gamev[2][4] != 1)&&(gamev[2][3] == 1)){
+                    if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[2][2] == 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                        if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                        if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                  %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                 if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    if(winner[2][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                         %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+
+
+            }
+        }
+        else{
+             if(gamev[2][5] == 1){
+                if(gamev[2][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[2][4] != 1)&&(gamev[2][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[2][2] == 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[2][1] == 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[2][0] == 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                        |");
+                }
+                 if((gamev[2][0] != 1)&&(gamev[2][1] != 1)&&(gamev[2][2] != 1)&&(gamev[2][3] != 1)&&(gamev[2][4] != 1)){
+                    printf("                              |");
+                }
+
+
+            }
+
+        }
+        printf("\n");
+    }
+for(j = 0;j < 5;j++){
+            if(gameh[3][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+
+
+    for(i = 0;i < 3;i++){
+        if(squ[3][0] >= 1){
+            if(gamev[3][0] == 1){
+            printf("|");
+            if(winner[3][0] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+            printf("%c%c%c%c%c",c,c,c,c,c);
+            SetConsoleTextAttribute(hConsole, saved_attributes);
+        }
+        }
+        else{
+        if(gamev[3][0] == 1){
+            printf("|     ");
+
+        }
+        }
+        if(gamev[3][1] == 1){
+                if(gamev[3][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(squ[3][1] >= 1){
+            if(gamev[3][2] == 1){
+                if(gamev[3][1] == 1){
+                    if(winner[3][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+        }
+                else if((gamev[3][0] != 1)&&(gamev[3][1] != 1)){
+                        if(winner[3][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                else if ((gamev[3][0] == 1)&&(gamev[3][1] != 1)){
+                        if(winner[3][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf(" %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+        }
+        else{
+        if(gamev[3][2] == 1){
+                if(gamev[3][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[3][0] != 1)&&(gamev[3][0] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[3][0] == 1)&&(gamev[3][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        }
+        if(squ[3][2] >= 1){
+        if(gamev[3][3] == 1){
+
+                if(gamev[3][2] == 1){
+                if(winner[3][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][2] != 1)&&(gamev[3][1] == 1)){
+
+                if(winner[3][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+
+               if(winner[3][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+                if(winner[3][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+                }
+        else{
+        if(gamev[3][3] == 1){
+
+                if(gamev[3][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[3][2] != 1)&&(gamev[3][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+                    printf("            |");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        }
+        if(squ[3][3] >= 1){
+            if(gamev[3][4] == 1){
+            if(gamev[3][3] == 1){
+                    if(winner[3][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][3] != 1)&&(gamev[3][2] == 1)){
+                    if(winner[3][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    if(winner[3][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    if(winner[3][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    if(winner[3][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+        }
+        else{
+        if(gamev[3][4] == 1){
+            if(gamev[3][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[3][3] != 1)&&(gamev[3][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        }
+        if(squ[3][4] >= 1){
+            if(gamev[3][5] == 1){
+                if(gamev[3][4] == 1){
+                      if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                     printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                     printf("|");
+
+                }
+
+                if((gamev[3][4] != 1)&&(gamev[3][3] == 1)){
+                    if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[3][2] == 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                        if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                        if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                  %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                 if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    if(winner[3][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                         %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+
+
+            }
+        }
+        else{
+             if(gamev[3][5] == 1){
+                if(gamev[3][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[3][4] != 1)&&(gamev[3][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[3][2] == 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[3][1] == 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[3][0] == 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                        |");
+                }
+                 if((gamev[3][0] != 1)&&(gamev[3][1] != 1)&&(gamev[3][2] != 1)&&(gamev[3][3] != 1)&&(gamev[3][4] != 1)){
+                    printf("                              |");
+                }
+
+
+            }
+
+        }
+        printf("\n");
+
+    }
+    for(j = 0;j < 5;j++){
+            if(gameh[4][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+    for(i = 0;i < 3;i++){
+        if(squ[4][0] >= 1){
+            if(gamev[4][0] == 1){
+            printf("|");
+            if(winner[4][0] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+            printf("%c%c%c%c%c",c,c,c,c,c);
+            SetConsoleTextAttribute(hConsole, saved_attributes);
+        }
+        }
+        else{
+        if(gamev[4][0] == 1){
+            printf("|     ");
+
+        }
+        }
+        if(gamev[4][1] == 1){
+                if(gamev[4][0] == 1){
+                        printf("|");
+
+        }else{
+            printf("      |");
+        }
+        }
+        if(squ[4][1] >= 1){
+            if(gamev[4][2] == 1){
+                if(gamev[4][1] == 1){
+                    if(winner[4][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+        }
+                else if((gamev[4][0] != 1)&&(gamev[4][1] != 1)){
+                        if(winner[4][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                else if ((gamev[4][0] == 1)&&(gamev[4][1] != 1)){
+                        if(winner[4][1] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf(" %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+        }
+        else{
+        if(gamev[4][2] == 1){
+                if(gamev[4][1] == 1){
+                    printf("     |");
+        }
+                else if((gamev[4][0] != 1)&&(gamev[4][0] != 1)){
+                    printf("            |");
+                }
+                else if ((gamev[4][0] == 1)&&(gamev[4][1] != 1)){
+                    printf("      |");
+                }
+
+        }
+        }
+        if(squ[4][2] >= 1){
+        if(gamev[4][3] == 1){
+
+                if(gamev[4][2] == 1){
+                if(winner[4][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][2] != 1)&&(gamev[4][1] == 1)){
+
+                if(winner[4][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+
+               if(winner[4][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("       %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+                if(winner[4][2] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+                }
+        else{
+        if(gamev[4][3] == 1){
+
+                if(gamev[4][2] == 1){
+                    printf("     |");
+                }
+                if((gamev[4][2] != 1)&&(gamev[4][1] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+                    printf("            |");
+                }
+                if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)){
+                    printf("                  |");
+                }
+
+        }
+        }
+        if(squ[4][3] >= 1){
+            if(gamev[4][4] == 1){
+            if(gamev[4][3] == 1){
+                    if(winner[4][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][3] != 1)&&(gamev[4][2] == 1)){
+                    if(winner[4][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    if(winner[4][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    if(winner[4][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("             %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+                if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    if(winner[4][3] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+                }
+
+        }
+
+
+        }
+        else{
+        if(gamev[4][4] == 1){
+            if(gamev[4][3] == 1){
+                    printf("     |");
+                }
+                if((gamev[4][3] != 1)&&(gamev[4][2] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                  |");
+                }
+                if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)){
+                    printf("                        |");
+                }
+
+        }
+        }
+        if(squ[4][4] >= 1){
+            if(gamev[4][5] == 1){
+                if(gamev[4][4] == 1){
+                      if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                     printf("%c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                     printf("|");
+
+                }
+
+                if((gamev[4][4] != 1)&&(gamev[4][3] == 1)){
+                    if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("      %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[4][2] == 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                        if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("            %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                        if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                  %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                   %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+                 if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    if(winner[4][4] == 1){
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE);
+            }
+            else{
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+            }
+                    printf("                         %c%c%c%c%c",c,c,c,c,c);
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
+                    printf("|");
+
+                }
+
+
+            }
+        }
+        else{
+             if(gamev[4][5] == 1){
+                if(gamev[4][4] == 1){
+                     printf("     |");
+                }
+
+                if((gamev[4][4] != 1)&&(gamev[4][3] == 1)){
+                    printf("           |");
+                }
+                if((gamev[4][2] == 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                 |");
+                }
+                if((gamev[4][1] == 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                       |");
+                }
+                if((gamev[4][0] == 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                        |");
+                }
+                 if((gamev[4][0] != 1)&&(gamev[4][1] != 1)&&(gamev[4][2] != 1)&&(gamev[4][3] != 1)&&(gamev[4][4] != 1)){
+                    printf("                              |");
+                }
+
+
+            }
+
+        }
+
+        printf("\n");
+
+    }
+    for(j = 0;j < 5;j++){
+            if(gameh[5][j] == 1){
+                printf("%c-----",n);
+            }
+            else{
+                printf("%c     ",n);
+            }
+        }
+        printf("%c\n",n);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return 0;
+}
