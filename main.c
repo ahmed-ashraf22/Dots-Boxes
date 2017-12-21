@@ -3,7 +3,7 @@
 #include<windows.h>
 #include <dos.h>
 #include <dir.h>
-//first commit
+//first commit31312
 void firstShape1(int gameh1[3][2],int gamev1[2][3],int n);
 void initial1(int squ1[2][2],int winner1[2][2]);
 void initial2(int movh1[3][2],int movv1[2][3]);
